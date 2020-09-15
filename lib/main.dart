@@ -1,9 +1,17 @@
+import 'package:a_http/a_http.dart';
 import 'package:flutter/material.dart';
-import 'file:///F:/flutter/lottie_flutter/lottie_flutter/lib/pages/FeaturePage.dart';
-import 'file:///F:/flutter/lottie_flutter/lottie_flutter/lib/pages/PopularPage.dart';
-import 'file:///F:/flutter/lottie_flutter/lottie_flutter/lib/pages/RecentPage.dart';
+
+import 'pages/FeaturePage.dart';
+import 'pages/PopularPage.dart';
+import 'pages/RecentPage.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
+  //AHttp.devMode = true;
+  AHttp.init(
+    defaultHost: "https://api.lottiefiles.com/",
+  ); //proxy: "172.26.65.1:8888"
+  Lottie.traceEnabled = true;
   runApp(App());
 }
 
@@ -49,7 +57,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(child: pages[_selectedIndex],),
+      body: IndexedStack(
+        children: pages,
+        index: _selectedIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
